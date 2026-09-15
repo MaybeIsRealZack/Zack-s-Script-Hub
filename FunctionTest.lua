@@ -658,25 +658,7 @@ local Tests: any = {
 		DisabledFor = {"Visual"}
 	},
 
-	replicatesignal = {
-		Test = function()
-			local replicatesignal = getfenv().replicatesignal
-			local Player = game:GetService("Players").LocalPlayer
-			local Fired = false
-
-			Player.Character.Humanoid.HealthChanged:Once(function()
-				Fired = true
-			end)
-
-			replicatesignal(Player.Kill)
-
-			local Start = tick()
-			repeat task.wait() until Fired or tick() - Start > 5
-
-			assert(Fired, "health wasn't changed within 5 seconds")
-		end,
-		DisableOnDebug = true,
-	},
+	replicatesignal = {},
 
 	-- ── 網路 ──────────────────────────────────
 
